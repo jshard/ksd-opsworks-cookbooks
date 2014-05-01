@@ -1,0 +1,15 @@
+#
+# Master profile for the <%= @name %> service.
+#
+
+<%= @name.upcase %>_HOME=<%= @home %>
+<%= @name.upcase %>_CONFIG=<%= @config %>
+<%= @name.upcase %>_BASE=<%= @base %>
+export <%= @name.upcase %>_HOME \
+       <%= @name.upcase %>_CONFIG \
+       <%= @name.upcase %>_BASE
+
+for component in `ls <%= @profile_dir %>`
+do
+    . <%= @profile_dir %>/$component
+done

@@ -1,0 +1,12 @@
+#
+#setenv.sh for the <%= @vname %> component
+#
+
+CATALINA_OPTS="<%= @setenv_mem_opts %> <%= @setenv_gc_opts %> <%= @setenv_kot7_opts %> <%= @setenv_melody_opts %> <%= @setenv_misc_opts %> <%= @setenv_environment_opts %>"
+export CATALINA_OPTS
+
+CATALINA_PID="$CATALINA_BASE/tomcat.pid"
+export CATALINA_PID
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CATALINA_HOME/lib
+export LD_LIBRARY_PATH
