@@ -1,0 +1,60 @@
+#!/bin/bash
+
+#
+# component init script for the <%= @vname %> component
+#
+
+#
+# component environment
+
+<%= @name.upcase %>_USER=<%= @user %>
+<%= @name.upcase %>_GROUP=<%= @group %>
+
+<%= @name.upcase %>_HOME=<%= @vhome %>
+<%= @name.upcase %>_CONFIG=<%= @vconfig %>
+<%= @name.upcase %>_BASE=<%= @base %>
+<%= @name.upcase %>_LOGS=<%= @logs %>
+
+#
+# functions
+
+<%= @name %>_start () {
+    echo "<%= @name %> component does not need to be started"
+    return
+}
+
+<%= @name %>_stop () {
+    echo "<%= @name %> component does not need to be stopped"
+    return
+}
+
+<%= @name %>_status () {
+    echo "<%= @name %> component is installed"
+    return
+}
+
+<%= @name %>_execute () {
+    case "$1" in
+    'start')
+           <%= @name %>_start
+           exit 0
+           ;;
+    'stop')
+           <%= @name %>_stop
+           exit 0
+           ;;
+    'restart')
+           <%= @name %>_stop
+           <%= @name %>_start
+           exit 0
+           ;;
+    'status')
+           <%= @name %>_status
+           exit 0
+           ;;
+    *)
+           usage
+           exit 1
+           ;;
+    esac
+}

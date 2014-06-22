@@ -104,6 +104,25 @@ default.kinst.component.ruby.profile_template = "ruby_component_profile.erb"
 default.kinst.component.ruby.init_cookbook    = "kinst"
 default.kinst.component.ruby.init_template    = "ruby_component_init.erb"
 
+#--------------- orainst component attributes
+
+default.kinst.component.orainst.dist_bucket      = "ua-eas-ksd"
+default.kinst.component.orainst.dist_path        = "kinst/orainst"
+default.kinst.component.orainst.dist_versions = {
+  "12.1.0.1.0" => {
+    :basic_dist_file   => "instantclient-basic-linux.x64-12.1.0.1.0.zip",
+    :jdbc_dist_file    => "instantclient-jdbc-linux.x64-12.1.0.1.0.zip",
+    :sqlplus_dist_file => "instantclient-sqlplus-linux.x64-12.1.0.1.0.zip",
+    :files_unpack_into => "instantclient_12_1",
+  }
+}
+default.kinst.component.orainst.ldso_cookbook = "kinst"
+default.kinst.component.orainst.ldso_template = "orainst_component_ldso.erb"
+default.kinst.component.orainst.profile_cookbook = "kinst"
+default.kinst.component.orainst.profile_template = "orainst_component_profile.erb"
+default.kinst.component.orainst.init_cookbook    = "kinst"
+default.kinst.component.orainst.init_template    = "orainst_component_init.erb"
+
 #--------------- nginx component attributes
 
 default.kinst.component.nginx.ipaddress        = "#{node.kinst.system.net.ipaddress}"

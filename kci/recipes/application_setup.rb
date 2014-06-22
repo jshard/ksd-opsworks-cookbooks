@@ -39,6 +39,14 @@ jdk_component     "#{node.kci.application.component.jdk.install_as}" do
   priority        "#{node.kci.application.component.jdk.priority}"
 end
 
+orainst_component "#{node.kci.application.component.orainst.install_as}" do
+  service         "#{node.kci.application.component.orainst.service}"
+  user            "#{node.kci.application.component.orainst.user}"
+  group           "#{node.kci.application.component.orainst.group}"
+  version         "#{node.kci.application.component.orainst.version}"
+  priority        "#{node.kci.application.component.orainst.priority}"
+end
+
 tomcat_component  "#{node.kci.application.component.tomcat.install_as}" do
   service         "#{node.kci.application.component.tomcat.service}"
   user            "#{node.kci.application.component.tomcat.user}"

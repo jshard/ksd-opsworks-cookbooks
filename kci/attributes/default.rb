@@ -27,6 +27,13 @@ default.kci.application.component.jdk.group          = "#{node.kci.application.s
 default.kci.application.component.jdk.version        = "1.7.0-51"
 default.kci.application.component.jdk.priority       = "0"
 
+default.kci.application.component.orainst.install_as = "orainst"
+default.kci.application.component.orainst.service    = "#{node.kci.application.service.name}"
+default.kci.application.component.orainst.user       = "#{node.kci.application.service.user}"
+default.kci.application.component.orainst.group      = "#{node.kci.application.service.group}"
+default.kci.application.component.orainst.version    = "12.1.0.1.0"
+default.kci.application.component.orainst.priority   = "1"
+
 default.kci.application.component.tomcat.install_as  = "tomcat"
 default.kci.application.component.tomcat.service     = "#{node.kci.application.service.name}"
 default.kci.application.component.tomcat.user        = "#{node.kci.application.service.user}"
@@ -43,7 +50,7 @@ default.kci.application.application.kc.service          = "#{node.kci.applicatio
 default.kci.application.application.kc.user             = "#{node.kci.application.service.user}"
 default.kci.application.application.kc.group            = "#{node.kci.application.service.group}"
 default.kci.application.application.kc.upstream_version = "5.2.1"
-default.kci.application.application.kc.local_version    = "1"
+default.kci.application.application.kc.local_version    = "0"
 
 #--------------- undeploy phase attributes
 
