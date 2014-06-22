@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Server port="8005" shutdown="SHUTDOWN">
+
+  <!-- APR library loader -->
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+
+  <!-- Initialize Jasper prior to webapps being loaded -->
+  <Listener className="org.apache.catalina.core.JasperListener" />
+
+  <!-- Prevent memory leaks due to use of particular java/javax APIs -->
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <!-- Global JNDI resources -->
+  <GlobalNamingResources>
+
+    <!-- Point to a simple user file for basic authentication -->
+    <Resource name="UserDatabase" auth="Container" type="org.apache.catalina.UserDatabase"
+              description="User database that can be updated and saved"
+              factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+              pathname="conf/tomcat-users.xml" />
+
+  </GlobalNamingResources>
+
+  <!-- Catalina service -->
+  <Service name="Catalina">
+
+    <!-- Define a non-SSL HTTP/1.1 Connector on port <%= @http_port %> -->
+    <Connector port="<%= @http_port %>"
+               protocol="HTTP/1.1"
+               proxyName="<%= @proxy_name %>"
+               proxyPort="443"
+               scheme="https"
+               secure="true"
+               socketBuffer="16384"
+               maxHttpHeaderSize="32768"
+               connectionTimeout="60000"
+               maxPostSize="-1"
+               maxSavePostSize="-1"
+               acceptorThreadCount="2"
+               acceptCount="128"
+               maxThreads="512"
+               minSpareThreads="64"
+               URIEncoding="UTF-8"
+               />
+
+	<!-- Catalina engine -->
+    <Engine name="Catalina" defaultHost="localhost">
+
+      <!-- Localhost virtual host -->
+      <Host name="localhost"  appBase="webapps" unpackWARs="true" autoDeploy="true">
+
+        <!-- Define an Apache-style access log to track connections --> 
+        <Valve className="org.apache.catalina.valves.AccessLogValve"
+               directory="logs"
+               prefix="localhost_access_log"
+               suffix=".log"
+               rotatable="false"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b"
+               />
+
+      </Host>
+
+      <!-- Use the LockOutRealm to prevent brute-force password guessing -->
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+               resourceName="UserDatabase"/>
+      </Realm>
+
+    </Engine>
+
+  </Service>
+
+</Server>

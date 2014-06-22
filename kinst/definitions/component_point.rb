@@ -1,0 +1,34 @@
+#
+# Copyright (c) 2014, Arizona Board of Regents
+# All rights reserved.
+#
+# This file is part of the KSD OpsWorks Cookbook Repository project.
+# It is subject to the license terms in the LICENSE file found in the
+# top-level directory of this distribution. No part of this project,
+# including this file, may be copied, modified, propagated, or
+# distributed except according to the terms contained in the LICENSE
+# file.
+#
+
+define :component_point, :info  => '__missing__' do
+  cmp = params[:info]
+    
+  # create basic component directory structure
+                                   
+  [ cmp[:build],
+    cmp[:vbuild],
+    cmp[:home],
+    cmp[:vhome],
+    cmp[:config],
+    cmp[:vconfig],
+    cmp[:base],
+    cmp[:logs]
+  ].each do |d|
+    directory "#{d}" do
+      owner "#{cmp[:user]}"
+      group "#{cmp[:group]}"
+    end
+  end                                   
+
+end
+                         

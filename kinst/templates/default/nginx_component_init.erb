@@ -1,0 +1,87 @@
+#!/bin/bash
+
+#
+# component init script for the <%= @vname %> component
+#
+
+#
+# component environment
+
+<%= @name.upcase %>_USER=<%= @user %>
+<%= @name.upcase %>_GROUP=<%= @group %>
+
+<%= @name.upcase %>_HOME=<%= @vhome %>
+<%= @name.upcase %>_CONFIG=<%= @vconfig %>
+<%= @name.upcase %>_BASE=<%= @base %>
+<%= @name.upcase %>_LOGS=<%= @logs %>
+
+#
+# functions
+
+<%= @name %>_start () {
+    check_user_and_group
+    if check_process <%= @name %>
+    then
+        echo "<%= @name %> component is already running"
+        return
+    else
+        echo "starting <%= @name %> component ..."
+		$<%= @name.upcase %>_HOME/bin/nginx
+		return
+	fi
+}
+
+<%= @name %>_stop () {
+    if check_process <%= @name %>
+    then
+        echo "stopping <%= @name %> component ..."
+        $<%= @name.upcase %>_HOME/bin/nginx -s quit
+        sleep 3
+		if check_process <%= @name %>
+        then
+            echo "unable to stop <%= @name %> component"
+            return
+        fi
+        return
+    else
+        echo "<%= @name %> component is already stopped"
+        return
+    fi
+}
+
+<%= @name %>_status () {
+    if check_process <%= @name %>
+    then
+        PIDS=`pgrep -f -d ' ' -u <%= @user %> <%= @name %>`
+        echo "<%= @name %> component is running, pids = $PIDS"
+    else
+        echo "<%= @name %> component is not running"
+    fi
+    return
+}
+
+<%= @name %>_execute () {
+    case "$1" in
+    'start')
+           <%= @name %>_start
+           exit 0
+           ;;
+    'stop')
+           <%= @name %>_stop
+           exit 0
+           ;;
+    'restart')
+           <%= @name %>_stop
+           <%= @name %>_start
+           exit 0
+           ;;
+    'status')
+           <%= @name %>_status
+           exit 0
+           ;;
+    *)
+           usage
+           exit 1
+           ;;
+    esac
+}

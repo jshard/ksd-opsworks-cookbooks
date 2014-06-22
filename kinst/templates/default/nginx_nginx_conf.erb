@@ -1,0 +1,29 @@
+worker_processes 1;
+
+error_log <%= @logs %>/error.log;
+pid <%= @logs %>/nginx.pid;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include <%= @vconfig %>/mime.types;
+    default_type application/octet-stream;
+
+    access_log <%= @logs %>/access.log combined;
+
+    sendfile on;
+
+    server {
+        listen <%= @ipaddress %>:<%= @port %>;
+        server_name <%= @hostname %>;
+	
+        location / {
+            root <%= @base %>/html;
+            index index.html index.htm;
+        }
+        
+        include <%= @proxy_dir %>/*;
+	}    
+}

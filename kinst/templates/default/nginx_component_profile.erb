@@ -1,0 +1,12 @@
+#
+# component profile for the <%= @vname %> component
+#
+
+<%= @name.upcase %>_HOME=<%= @vhome %>
+<%= @name.upcase %>_CONFIG=<%= @vconfig %>
+<%= @name.upcase %>_BASE=<%= @base %>
+<%= @name.upcase %>_LOGS=<%= @logs %>
+export <%= @name.upcase %>_HOME <%= @name.upcase %>_CONFIG <%= @name.upcase %>_BASE <%= @name.upcase %>_LOGS
+
+PATH=$<%= @name.upcase %>_HOME/bin:$PATH
+export PATH
