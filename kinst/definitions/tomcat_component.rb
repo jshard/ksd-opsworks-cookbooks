@@ -70,11 +70,9 @@ define :tomcat_component, :service  => '__missing__',
 
   # remove the component home and replace it by unpacking/moving the distribution file
  
-  execute "removing component vhome" do
-    user "#{cmp[:user]}"
-    group "#{cmp[:group]}"
-    cwd "#{cmp[:vbuild]}"
-    command "rmdir #{cmp[:vhome]}"
+  directory cmp[:vhome] do
+    action :delete
+    recursive true
   end
   
   execute "unpacking distribution file" do
@@ -83,7 +81,7 @@ define :tomcat_component, :service  => '__missing__',
     cwd "#{cmp[:home]}"
     command "tar zxf #{cmp[:vbuild]}/#{cmp[:dist_file_name]}"
   end
-   
+
   execute "moving component to compliant directory name" do
     user "#{cmp[:user]}"
     group "#{cmp[:group]}"
@@ -152,14 +150,18 @@ define :tomcat_component, :service  => '__missing__',
     command "make install"
   end
     
-  # create tomcat base directory structure
+  # create fresh tomcat base directory structure
   
   %w[ bin conf lib temp webapps work ].each do |d|
-    execute "creating #{d} in #{cmp[:base]}" do
-      user "#{cmp[:user]}"
-      group "#{cmp[:group]}"
-      cwd "#{cmp[:base]}"
-      command "mkdir #{d}"
+    adir = File.join(cmp[:base], d)
+    directory adir do
+      action :delete
+      recursive true
+    end
+    directory adir do
+      owner cmp[:user]
+      group cmp[:group]
+      action :create
     end
   end
   
