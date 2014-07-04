@@ -49,11 +49,9 @@ define :jdk_component, :service  => '__missing__',
                          
   # remove the component home and replace it by unpacking/moving the distribution file
  
-  execute "removing component vhome" do
-    user "#{cmp[:user]}"
-    group "#{cmp[:group]}"
-    cwd "#{cmp[:vbuild]}"
-    command "rmdir #{cmp[:vhome]}"
+  directory cmp[:vhome] do
+    action :delete
+    recursive true
   end
   
   execute "unpacking distribution file" do
@@ -69,7 +67,7 @@ define :jdk_component, :service  => '__missing__',
     cwd "#{cmp[:home]}"
     command "mv #{cmp[:dist_unpacks_to]} #{cmp[:vhome]}"
   end
-   
+
   # add component profile
    
   template "#{cmp[:profile]}" do
