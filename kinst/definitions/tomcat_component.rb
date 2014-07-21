@@ -61,11 +61,15 @@ define :tomcat_component, :service  => '__missing__',
  
   # fetch distribution file from S3 distribution depot
 
-  s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
+  aws_s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
     bucket "#{cmp[:dist_bucket]}"
     remote_path "#{cmp[:dist_path]}/#{cmp[:dist_file_name]}"
     owner "#{cmp[:user]}"
     group "#{cmp[:group]}"
+    if node.has_key? :aws_credentials
+      aws_access_key_id node[:aws_credentials][:access_key_id]
+      aws_secret_access_key node[:aws_credentials][:secret_access_key]
+    end
   end
 
   # remove the component home and replace it by unpacking/moving the distribution file
@@ -91,19 +95,27 @@ define :tomcat_component, :service  => '__missing__',
   
   # add javamail and dynamodb session manager libraries to home installation
   
-  s3_file "#{cmp[:vhome]}/lib/#{cmp[:javamail_install_as]}" do
-      bucket "#{cmp[:dist_bucket]}"
-      remote_path "#{cmp[:dist_path]}/#{cmp[:javamail_file_name]}"
-      owner "#{cmp[:user]}"
-      group "#{cmp[:group]}"
+  aws_s3_file "#{cmp[:vhome]}/lib/#{cmp[:javamail_install_as]}" do
+    bucket "#{cmp[:dist_bucket]}"
+    remote_path "#{cmp[:dist_path]}/#{cmp[:javamail_file_name]}"
+    owner "#{cmp[:user]}"
+    group "#{cmp[:group]}"
+    if node.has_key? :aws_credentials
+      aws_access_key_id node[:aws_credentials][:access_key_id]
+      aws_secret_access_key node[:aws_credentials][:secret_access_key]
     end
+  end
 
-  s3_file "#{cmp[:vhome]}/lib/#{cmp[:ddb_sess_mgr_install_as]}" do
-      bucket "#{cmp[:dist_bucket]}"
-      remote_path "#{cmp[:dist_path]}/#{cmp[:ddb_sess_mgr_file_name]}"
-      owner "#{cmp[:user]}"
-      group "#{cmp[:group]}"
+  aws_s3_file "#{cmp[:vhome]}/lib/#{cmp[:ddb_sess_mgr_install_as]}" do
+    bucket "#{cmp[:dist_bucket]}"
+    remote_path "#{cmp[:dist_path]}/#{cmp[:ddb_sess_mgr_file_name]}"
+    owner "#{cmp[:user]}"
+    group "#{cmp[:group]}"
+    if node.has_key? :aws_credentials
+      aws_access_key_id node[:aws_credentials][:access_key_id]
+      aws_secret_access_key node[:aws_credentials][:secret_access_key]
     end
+  end
       
   # compile and install tomcat apache native library
     
@@ -111,11 +123,15 @@ define :tomcat_component, :service  => '__missing__',
     package p
   end
   
-  s3_file "#{cmp[:vbuild]}/#{cmp[:tomcat_native_file_name]}" do
+  aws_s3_file "#{cmp[:vbuild]}/#{cmp[:tomcat_native_file_name]}" do
     bucket "#{cmp[:dist_bucket]}"
     remote_path "#{cmp[:dist_path]}/#{cmp[:tomcat_native_file_name]}"
     owner "#{cmp[:user]}"
     group "#{cmp[:group]}"
+    if node.has_key? :aws_credentials
+      aws_access_key_id node[:aws_credentials][:access_key_id]
+      aws_secret_access_key node[:aws_credentials][:secret_access_key]
+    end
   end
   
   execute "unpacking tomcat native library source" do

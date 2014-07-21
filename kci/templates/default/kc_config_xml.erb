@@ -1,0 +1,69 @@
+<config>
+  <param name="application.http.scheme">https</param>
+  <param name="application.host"><%= @application_host %></param>
+  <param name="http.port">443</param>
+  <param name="app.context.name"><%= @context_name %></param>
+
+  <!-- KC Client DB -->
+  <param name="datasource.url">jdbc:oracle:thin:@<%= @database_url %></param>
+  <param name="datasource.username"><%= @database_username %></param>
+  <param name="datasource.password"><%= @database_password %></param>
+  <param name="datasource.ojb.platform">Oracle9i</param>
+
+  <!-- S2S Configuration -->
+  <param name="s2s.keystore.location">path to keystore</param>
+  <param name="s2s.keystore.password">keystore password</param>
+  <param name="s2s.truststore.location">path to truststore</param>
+  <param name="s2s.truststore.password">truststore password</param>
+  <param name="grants.gov.s2s.host">grants.gov host</param>
+  <param name="grants.gov.s2s.port">grants.gov port</param>
+  <param name="research.gov.keystore.location">path to keystore for research.gov(can be the same as s2s/grants.gov and provided for flexibility)</param>
+  <param name="research.gov.keystore.password">keystore password</param>
+  <param name="research.gov.truststore.location">path to truststore</param>
+  <param name="research.gov.truststore.password">truststore password</param>
+  <param name="research.gov.s2s.host">research.gov host</param>
+  <param name="research.gov.s2s.port">reserach.gov port</param>
+
+  <!-- Logging print Configuration -->
+  <param name="print.logging.directory">log directory path</param>
+  <param name="print.logging.enable">"true" to enable logging</param>
+
+  <!-- Save Xml Configuration -->
+  <param name="print.xml.directory">directory path</param>
+
+  <!-- Financial System WSDL Service URL -->
+  <param name="fin.system.integration.service.url">financial system service url</param>
+
+  <!-- Java mail properties -->
+  <param name="mail.from">mail.from@kuali.org</param>
+  <param name="mail.transport.protocol">smtp</param>
+  <param name="mail.smtp.host">127.0.0.1</param>
+  <param name="mail.smtp.port">25</param>
+  <param name="mail.smtp.user">userId</param>
+  <param name="mail.user.credentials">password</param>
+  <param name="mail.smtp.auth">false</param>
+
+  <!-- Kuali parameters -->
+  <param name="mail.relay.server">mail.relay.server</param>
+  <param name="mailing.list.batch">mailing.list.batch</param>
+  <param name="encryption.key">7IC64w6kAAAA</param>
+
+  <param name="keystore.alias">the_alias</param>
+  <param name="keystore.file">/path/to/keystore</param>
+  <param name="keystore.password">the_password</param>
+
+  <param name="print.xml.directory">${java.io.tmpdir}/printing</param>
+
+  <!-- Configuration for Exception Incident handling and reporting -->
+  <param name="KualiExceptionHandlerAction.EXCEPTION_INCIDENT_REPORT_SERVICE">knsExceptionIncidentService</param>
+  <param name="MailMessage.from">admin@kuali.org</param>
+  <param name="KualiExceptionIncidentServiceImpl.additionalExceptionNameList"></param>
+  <param name="KualiExceptionIncidentServiceImpl.REPORT_MAIL_LIST"></param>
+  <param name="kr.incident.mailing.list"></param>
+  <!-- End of Exception Incident handling and reporting -->
+
+  <!-- Misc parameters -->
+  <param name="institution">iu</param>
+  <param name="security.directory">/usr/local/rice/</param>
+  <param name="settings.directory">/usr/local/rice/</param>
+</config>

@@ -40,7 +40,7 @@ define :groovy_component, :service  => '__missing__',
  
   # fetch distribution file from S3 distribution depot
 
-  s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
+  aws_s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
     bucket "#{cmp[:dist_bucket]}"
     remote_path "#{cmp[:dist_path]}/#{cmp[:dist_file_name]}"
     owner "#{cmp[:user]}"

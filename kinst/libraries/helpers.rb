@@ -96,9 +96,15 @@ module Kinst
       
       a[ :vname   ] = "#{a[:name]}-#{a[:version]}"
       
-      a[ :deploy  ] = "#{s[:apps]}/#{a[:name]}"
+      a[ :deploy  ] = "#{s[:apps]}/#{a[:service]}/#{a[:name]}"
       a[ :vdeploy ] = "#{a[:deploy]}/#{a[:vname]}"
       
+      a[:tomcat_path]         = "#{node.kinst.service.paths.base}/#{a[:service]}/tomcat"
+      a[:tomcat_bin_path]     = "#{a[:tomcat_path]}/bin"
+      a[:tomcat_conf_path]    = "#{a[:tomcat_path]}/conf"
+      a[:tomcat_lib_path]     = "#{a[:tomcat_path]}/lib"
+      a[:tomcat_webapps_path] = "#{a[:tomcat_path]}/webapps"
+  
       return a
     end
 

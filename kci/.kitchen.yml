@@ -1,15 +1,36 @@
----
 driver:
   name: vagrant
+  driver_config:
+    require_chef_omnibus: true
+    use_vagrant_berkshelf_plugin: true
+    customize:
+      memory: 1024
+      cpus: 1
 
 provisioner:
   name: chef_solo
+  require_chef_omnibus: '11.10.4'
+  solo_rb:
+    ssl_verify_mode: verify_peer
 
 platforms:
-  - name: ubuntu-12.04
-  - name: centos-6.4
+  - name: centos-6.5
 
 suites:
   - name: default
     run_list:
+      - recipe[aws]
+      - recipe[kci::application_setup]
+      - recipe[kci::application_deploy]
     attributes:
+      # cookbook-test credentials
+      aws_credentials:
+        access_key_id: ""
+        secret_access_key: ""
+      # opsworks stubs
+      opsworks:
+        stack:
+          rds_instances:
+            - address: "uar-devel-db.com"
+              port: 1521
+              dbname: "KCDEV"

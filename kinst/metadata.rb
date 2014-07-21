@@ -11,4 +11,4 @@ license          'See LICENSE.txt file at top of distribution.'
 version          '1.0.0'
 
 depends 'build-essential'
-depends 's3_file'
+depends 'aws'

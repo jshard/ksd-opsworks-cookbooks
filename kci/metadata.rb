@@ -1,4 +1,4 @@
-name             'kti'
+name             'kci'
 maintainer       'EAS KSD Tools Administrator'
 maintainer_email 'eas-ksd-toolsadm@list.arizona.edu'
 description      'Kuali Coeus Installer'

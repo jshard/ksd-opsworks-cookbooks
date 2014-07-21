@@ -40,11 +40,15 @@ define :jdk_component, :service  => '__missing__',
  
   # fetch distribution file from S3 distribution depot
 
-  s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
+  aws_s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
     bucket "#{cmp[:dist_bucket]}"
     remote_path "#{cmp[:dist_path]}/#{cmp[:dist_file_name]}"
     owner "#{cmp[:user]}"
     group "#{cmp[:group]}"
+    if node.has_key? :aws_credentials
+      aws_access_key_id node[:aws_credentials][:access_key_id]
+      aws_secret_access_key node[:aws_credentials][:secret_access_key]
+    end
   end
                          
   # remove the component home and replace it by unpacking/moving the distribution file

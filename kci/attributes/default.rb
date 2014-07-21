@@ -38,12 +38,35 @@ default.kci.application.component.tomcat.priority    = "7"
 
 #--------------- deploy phase attributes
 
-default.kci.application.application.kc.install_as       = "kc"
-default.kci.application.application.kc.service          = "#{node.kci.application.service.name}"
-default.kci.application.application.kc.user             = "#{node.kci.application.service.user}"
-default.kci.application.application.kc.group            = "#{node.kci.application.service.group}"
-default.kci.application.application.kc.upstream_version = "5.2.1"
-default.kci.application.application.kc.local_version    = "1"
+default.kci.application.application.kc.install_as        = "kc"
+default.kci.application.application.kc.service           = "#{node.kci.application.service.name}"
+default.kci.application.application.kc.user              = "#{node.kci.application.service.user}"
+default.kci.application.application.kc.group             = "#{node.kci.application.service.group}"
+default.kci.application.application.kc.s3_bucket         = "katt-packages"
+default.kci.application.application.kc.s3_prefix         = "kuali/kuali-coeus"
+default.kci.application.application.kc.s3_basename       = "__missing__"
+default.kci.application.application.kc.upstream_version  = "__missing__"
+default.kci.application.application.kc.local_version     = "__missing__"
+
+default.kci.application.application.kc.config            = "/#{node.kinst.service.user.home}/#{node.kci.application.service.user}/kuali/main/dev/kc-config.xml"
+default.kci.application.application.kc.context_name      = "__missing__"
+default.kci.application.application.kc.application_host  = "__missing__"
+default.kci.application.application.kc.database_url      = "#{node[:opsworks][:stack][:rds_instances][0][:address]}:#{node[:opsworks][:stack][:rds_instances][0][:port]}/#{node[:opsworks][:stack][:rds_instances][0][:db_name]}"
+default.kci.application.application.kc.database_username = "__missing__"
+default.kci.application.application.kc.database_password = "__missing__"
+
+default.kci.application.application.kc.config_cookbook    = "kci"
+default.kci.application.application.kc.config_template    = "kc_config_xml.erb"
+default.kci.application.component.tomcat.setenv_cookbook  = "kinst"
+default.kci.application.component.tomcat.setenv_template  = "tomcat_setenv_sh.erb"
+
+
+default.kci.application.component.tomcat.setenv_mem_opts         = "#{node.kinst.component.tomcat.setenv_mem_opts}"
+default.kci.application.component.tomcat.setenv_gc_opts          = "#{node.kinst.component.tomcat.setenv_gc_opts}"
+default.kci.application.component.tomcat.setenv_kot7_opts        = "#{node.kinst.component.tomcat.setenv_kot7_opts}"
+default.kci.application.component.tomcat.setenv_melody_opts      = "#{node.kinst.component.tomcat.setenv_melody_opts}"
+default.kci.application.component.tomcat.setenv_misc_opts        = "#{node.kinst.component.tomcat.setenv_misc_opts}"
+default.kci.application.component.tomcat.setenv_environment_opts = "-Denvironment=default -Dalt.config.location=#{node.kci.application.application.kc.config}"
 
 #--------------- undeploy phase attributes
 
