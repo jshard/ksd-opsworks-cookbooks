@@ -26,27 +26,27 @@ define :jenkins_component, :service  => '__missing__',
                                  params[:priority] )
 
   # create component point
-  
+
   component_point "#{cmp[:name]}" do
     info cmp
   end
-                                   
+
   # add networking specifics
-  
+
   cmp[:ipaddress] = "#{node.kinst.component.jenkins.ipaddress}"
   cmp[:hostname] = "#{node.kinst.component.jenkins.hostname}"
   cmp[:port] = "#{node.kinst.component.jenkins.port}"
-  
+
   # add distribution file specifics
-  
+
   cmp[:dist_bucket] = "#{node.kinst.component.jenkins.dist_bucket}"
   cmp[:dist_path] = "#{node.kinst.component.jenkins.dist_path}"
   cmp[:dist_file_name] = "#{node.kinst.component.jenkins.dist_versions[cmp[:version]][:dist_file_name]}"
   cmp[:dist_install_as] = "#{node.kinst.component.jenkins.dist_versions[cmp[:version]][:dist_install_as]}"
 
   # pull the jenkins war file from the distribution depot
- 
-  aws_s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
+
+  s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
     bucket "#{cmp[:dist_bucket]}"
     remote_path "#{cmp[:dist_path]}/#{cmp[:dist_file_name]}"
     owner "#{cmp[:user]}"
@@ -54,7 +54,7 @@ define :jenkins_component, :service  => '__missing__',
   end
 
   # copy/rename the war file into the component vhome
- 
+
   execute "copying war file into vhome" do
     user "#{cmp[:user]}"
     group "#{cmp[:group]}"
@@ -63,7 +63,7 @@ define :jenkins_component, :service  => '__missing__',
   end
 
   # add component profile
-   
+
   template "#{cmp[:profile]}" do
     cookbook "#{node.kinst.component.jenkins.profile_cookbook}"
     source "#{node.kinst.component.jenkins.profile_template}"
@@ -71,9 +71,9 @@ define :jenkins_component, :service  => '__missing__',
     group "#{cmp[:group]}"
     variables cmp
    end
-   
+
   # add component init
-                               
+
   template "#{cmp[:init]}" do
     cookbook "#{node.kinst.component.jenkins.init_cookbook}"
     source "#{node.kinst.component.jenkins.init_template}"
@@ -83,7 +83,7 @@ define :jenkins_component, :service  => '__missing__',
   end
 
   # add component proxy fragment
- 
+
   template "#{cmp[:proxy]}" do
     cookbook "#{node.kinst.component.jenkins.proxy_cookbook}"
     source "#{node.kinst.component.jenkins.proxy_template}"

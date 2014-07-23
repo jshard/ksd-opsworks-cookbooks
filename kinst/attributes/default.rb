@@ -44,6 +44,9 @@ default.kinst.service.paths.proxy_dir         = "proxy.d"
 
 default.kinst.service.paths.component.logs    = "logs"
 
+default.kinst.service.paths.component.health_check_dir = "ROOT"
+default.kinst.service.paths.component.health_check = "__IN_SERVICE__"
+
 #--------------- jdk component attributes
 
 default.kinst.component.jdk.dist_bucket      = "ua-eas-ksd"
@@ -156,6 +159,8 @@ default.kinst.component.tomcat.dist_versions = {
     :dist_unpacks_to          => "apache-tomcat-7.0.54",
     :javamail_file_name       => "javamail-1.5.2.jar",
     :javamail_install_as      => "javamail.jar",
+    :ojdbc_file_name          => "ojdbc6.jar",
+    :ojdbc_install_as         => "ojdbc6.jar",
     :ddb_sess_mgr_file_name   => "AmazonDynamoDBSessionManagerForTomcat-1.0.1.jar",
     :ddb_sess_mgr_install_as  => "dynamodb-session-manager.jar",
     :tomcat_native_file_name  => "tomcat-native-1.1.30-src.tar.gz",

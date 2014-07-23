@@ -66,4 +66,39 @@
   <param name="institution">iu</param>
   <param name="security.directory">/usr/local/rice/</param>
   <param name="settings.directory">/usr/local/rice/</param>
+
+  <!-- CAS params -->
+  <!--
+  <param name="server.url">http://localhost:8080/</param>
+  <param name="filtermapping.login.1">/*</param>
+  <param name="filter.login.class">org.jasig.cas.client.authentication.AuthenticationFilter</param>
+  <param name="filter.login.casServerLoginUrl">${cas.url}/login</param>
+  <param name="filter.login.serverName">${server.url}</param>
+
+  <param name="cas.url">https://webauth.arizona.edu/webauth</param>
+  <param name="filter.login.class">org.jasig.cas.client.authentication.AuthenticationFilter</param>
+  <param name="filter.login.casServerLoginUrl">${cas.url}/login</param>
+  <param name="filter.login.serverName">http://localhost:8080/kc-dev/</param>
+  <param name="filter.caswrapper.class">org.jasig.cas.client.util.HttpServletRequestWrapperFilter</param>
+  <param name="filtermapping.caswrapper.3">/</param>
+  -->
+
+  <!--<param name="appserver.url">${application.http.scheme}://${application.host}:8080/${app.context.name}</param>-->
+  <param name="appserver.url">${application.http.scheme}://${application.host}</param>
+  <param name="cas.url">https://webauth.arizona.edu/webauth</param>
+  <param name="cas.require.https">false</param>
+  <param name="cas.validate.password">true</param>
+
+  <param name="filter.login.class">org.jasig.cas.client.authentication.AuthenticationFilter</param>
+  <param name="filter.login.casServerLoginUrl">${cas.url}/login</param>
+  <param name="filter.login.serverName">${appserver.url}</param>
+  <param name="filtermapping.login.1">/*</param>
+
+  <!-- LDAP params, rice LDAP override -->
+  <param name="rice.ldap.username">uid=<%= @ldap_username %>,ou=App Users,dc=eds,dc=arizona,dc=edu</param>
+  <param name="rice.ldap.password"><%= @ldap_password %></param>
+  <param name="rice.ldap.url"><%= @ldap_url %></param>
+  <param name="rice.ldap.base">ou=People,dc=eds,dc=arizona,dc=edu</param>
+  <param name="rice.kim.additionalSpringFiles">classpath:edu/arizona/rice/config/KIMLdapSpringBeans.xml</param>
+
 </config>

@@ -39,6 +39,8 @@ define :tomcat_component, :service  => '__missing__',
   cmp[:dist_unpacks_to] = "#{node.kinst.component.tomcat.dist_versions[cmp[:version]][:dist_unpacks_to]}"
   cmp[:javamail_file_name] = "#{node.kinst.component.tomcat.dist_versions[cmp[:version]][:javamail_file_name]}"
   cmp[:javamail_install_as] = "#{node.kinst.component.tomcat.dist_versions[cmp[:version]][:javamail_install_as]}"
+  cmp[:ojdbc_file_name] = "#{node.kinst.component.tomcat.dist_versions[cmp[:version]][:ojdbc_file_name]}"
+  cmp[:ojdbc_install_as] = "#{node.kinst.component.tomcat.dist_versions[cmp[:version]][:ojdbc_install_as]}"
   cmp[:ddb_sess_mgr_file_name] = "#{node.kinst.component.tomcat.dist_versions[cmp[:version]][:ddb_sess_mgr_file_name]}"
   cmp[:ddb_sess_mgr_install_as] = "#{node.kinst.component.tomcat.dist_versions[cmp[:version]][:ddb_sess_mgr_install_as]}"
   cmp[:tomcat_native_file_name] = "#{node.kinst.component.tomcat.dist_versions[cmp[:version]][:tomcat_native_file_name]}"
@@ -61,7 +63,7 @@ define :tomcat_component, :service  => '__missing__',
  
   # fetch distribution file from S3 distribution depot
 
-  aws_s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
+  s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
     bucket "#{cmp[:dist_bucket]}"
     remote_path "#{cmp[:dist_path]}/#{cmp[:dist_file_name]}"
     owner "#{cmp[:user]}"
@@ -93,9 +95,9 @@ define :tomcat_component, :service  => '__missing__',
     command "mv #{cmp[:dist_unpacks_to]} #{cmp[:vhome]}"
   end
   
-  # add javamail and dynamodb session manager libraries to home installation
+  # add javamail, ojdbc, and dynamodb session manager libraries to home installation
   
-  aws_s3_file "#{cmp[:vhome]}/lib/#{cmp[:javamail_install_as]}" do
+  s3_file "#{cmp[:vhome]}/lib/#{cmp[:javamail_install_as]}" do
     bucket "#{cmp[:dist_bucket]}"
     remote_path "#{cmp[:dist_path]}/#{cmp[:javamail_file_name]}"
     owner "#{cmp[:user]}"
@@ -106,7 +108,18 @@ define :tomcat_component, :service  => '__missing__',
     end
   end
 
-  aws_s3_file "#{cmp[:vhome]}/lib/#{cmp[:ddb_sess_mgr_install_as]}" do
+  s3_file "#{cmp[:vhome]}/lib/#{cmp[:ojdbc_install_as]}" do
+    bucket "#{cmp[:dist_bucket]}"
+    remote_path "#{cmp[:dist_path]}/#{cmp[:ojdbc_file_name]}"
+    owner "#{cmp[:user]}"
+    group "#{cmp[:group]}"
+    if node.has_key? :aws_credentials
+      aws_access_key_id node[:aws_credentials][:access_key_id]
+      aws_secret_access_key node[:aws_credentials][:secret_access_key]
+    end
+  end
+
+  s3_file "#{cmp[:vhome]}/lib/#{cmp[:ddb_sess_mgr_install_as]}" do
     bucket "#{cmp[:dist_bucket]}"
     remote_path "#{cmp[:dist_path]}/#{cmp[:ddb_sess_mgr_file_name]}"
     owner "#{cmp[:user]}"
@@ -123,7 +136,7 @@ define :tomcat_component, :service  => '__missing__',
     package p
   end
   
-  aws_s3_file "#{cmp[:vbuild]}/#{cmp[:tomcat_native_file_name]}" do
+  s3_file "#{cmp[:vbuild]}/#{cmp[:tomcat_native_file_name]}" do
     bucket "#{cmp[:dist_bucket]}"
     remote_path "#{cmp[:dist_path]}/#{cmp[:tomcat_native_file_name]}"
     owner "#{cmp[:user]}"

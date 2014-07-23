@@ -16,21 +16,3 @@ provisioner:
 platforms:
   - name: centos-6.5
 
-suites:
-  - name: default
-    run_list:
-      - recipe[aws]
-      - recipe[kci::application_setup]
-      - recipe[kci::application_deploy]
-    attributes:
-      # cookbook-test credentials
-      aws_credentials:
-        access_key_id: ""
-        secret_access_key: ""
-      # opsworks stubs
-      opsworks:
-        stack:
-          rds_instances:
-            - address: "uar-devel-db.com"
-              port: 1521
-              dbname: "KCDEV"

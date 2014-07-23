@@ -40,7 +40,7 @@ define :python_component, :service  => '__missing__',
  
   # fetch and unpack distribution file from S3 distribution depot
 
-  aws_s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
+  s3_file "#{cmp[:vbuild]}/#{cmp[:dist_file_name]}" do
     bucket "#{cmp[:dist_bucket]}"
     remote_path "#{cmp[:dist_path]}/#{cmp[:dist_file_name]}"
     owner "#{cmp[:user]}"

@@ -1,8 +1,6 @@
 source "https://supermarket.getchef.com"
 
-metadata
-
 cookbook 'kinst', :path => '../kinst'
-cookbook 'aws'
-cookbook 'build-essential'
+
+metadata
 

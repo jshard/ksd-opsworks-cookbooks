@@ -16,19 +16,29 @@
 node[:deploy].each do |application, deploy|
 
   # duck if we're already deployed -- TBD
-  
+
   # deploy applications
-  
+
   if application == 'kc'
-    
+
     kc_application      "#{node.kci.application.application.kc.install_as}" do
       service           "#{node.kci.application.application.kc.service}"
       user              "#{node.kci.application.application.kc.user}"
       group             "#{node.kci.application.application.kc.group}"
-      upstream_version  "#{node.kci.application.application.kc.upstream_version}"
-      local_version     "#{node.kci.application.application.kc.local_version}"
+      s3_basename       "#{deploy[:s3_basename]}"
+      upstream_version  "#{deploy[:upstream_version]}"
+      local_version     "#{deploy[:local_version]}"
+      context_name      "#{deploy[:context_name]}"
+      application_host  "#{deploy[:application_host]}"
+      database_url      "#{deploy[:database_url]}"
+      database_username "#{deploy[:database_username]}"
+      database_password "#{deploy[:database_password]}"
+      ldap_url          "#{deploy[:ldap_url]}"
+      ldap_username     "#{deploy[:ldap_username]}"
+      ldap_password     "#{deploy[:ldap_password]}"
+
     end
-    
+
   end
 
 end
