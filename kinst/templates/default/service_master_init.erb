@@ -41,7 +41,7 @@ check_process () {
         echo "no process to look for!"
         exit 1
     fi
-    PROCPIDS=`pgrep -u $<%= @name.upcase %>_USER -f "$1"`
+    PROCPIDS=`pgrep -u $<%= @name.upcase %>_USER -f "$1" -l | grep -v kualictl | cut -f1 -d' '`
     if [ "X$PROCPIDS" = "X" ]
     then
         return 1;

@@ -5,7 +5,7 @@ description      'Kuali Toolkit Installer'
 long_description <<-EOH
     Using base functionality provided by the "kinst" cookbook, provides
     AWS OpsWorks recipes for the Kuali Service Delivery stack.  For a
-    full description, see the README.md file at the top level of the 
+    full description, see the README.md file at the top level of the
     cookbook repository.
 EOH
 license          'See LICENSE.txt file at top of distribution.'

@@ -12,9 +12,9 @@
 
 define :component_point, :info  => '__missing__' do
   cmp = params[:info]
-    
+
   # create basic component directory structure
-                                   
+
   [ cmp[:build],
     cmp[:vbuild],
     cmp[:home],
@@ -28,7 +28,6 @@ define :component_point, :info  => '__missing__' do
       owner "#{cmp[:user]}"
       group "#{cmp[:group]}"
     end
-  end                                   
+  end
 
 end
-                         
