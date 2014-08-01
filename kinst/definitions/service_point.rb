@@ -74,6 +74,7 @@ define :service_point, :description => '__missing__',
     directory "#{d}" do
       owner "#{svc[:user]}"
       group "#{svc[:group]}"
+      recursive true
     end
   end
 

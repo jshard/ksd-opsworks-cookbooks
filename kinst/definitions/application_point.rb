@@ -12,9 +12,9 @@
 
 define :application_point, :info  => '__missing__' do
   app = params[:info]
-    
+
   # create basic application directory structure
-                                   
+
   [ app[:deploy],
     app[:vdeploy]
   ].each do |d|
@@ -22,7 +22,6 @@ define :application_point, :info  => '__missing__' do
       owner "#{app[:user]}"
       group "#{app[:group]}"
     end
-  end                                   
+  end
 
 end
-       

@@ -44,6 +44,9 @@ default.kinst.service.paths.proxy_dir         = "proxy.d"
 
 default.kinst.service.paths.component.logs    = "logs"
 
+default.kinst.service.paths.component.health_check_dir = "ROOT"
+default.kinst.service.paths.component.health_check = "__IN_SERVICE__"
+
 #--------------- jdk component attributes
 
 default.kinst.component.jdk.dist_bucket      = "ua-eas-ksd"
@@ -175,6 +178,8 @@ default.kinst.component.tomcat.dist_versions = {
     :dist_unpacks_to          => "apache-tomcat-7.0.54",
     :javamail_file_name       => "javamail-1.5.2.jar",
     :javamail_install_as      => "javamail.jar",
+    :ojdbc_file_name          => "ojdbc6.jar",
+    :ojdbc_install_as         => "ojdbc6.jar",
     :ddb_sess_mgr_file_name   => "AmazonDynamoDBSessionManagerForTomcat-1.0.1.jar",
     :ddb_sess_mgr_install_as  => "dynamodb-session-manager.jar",
     :tomcat_native_file_name  => "tomcat-native-1.1.30-src.tar.gz",
@@ -214,3 +219,34 @@ default.kinst.component.tomcat.tomcat_users_xml_cookbook    = "kinst"
 default.kinst.component.tomcat.tomcat_users_xml_template    = "tomcat_tomcat_users_xml.erb"
 default.kinst.component.tomcat.web_xml_cookbook             = "kinst"
 default.kinst.component.tomcat.web_xml_template             = "tomcat_web_xml.erb"
+
+#--------------- oracle common CLI component attributes
+
+default.kinst.component.oracle.ld_config_cookbook = "kinst"
+default.kinst.component.oracle.ld_config_template = "oracle_conf.erb"
+default.kinst.component.oracle.ld_config          = "/etc/ld.so.conf.d/oracle.conf"
+default.kinst.component.oracle.profile_cookbook   = "kinst"
+default.kinst.component.oracle.profile_template   = "oracle_sh.erb"
+default.kinst.component.oracle.profile            = "/etc/profile.d/oracle.sh"
+
+#--------------- oracle sqlplus component attributes
+
+default.kinst.component.oracle.sqlplus.dist_bucket      = "ua-eas-ksd"
+default.kinst.component.oracle.sqlplus.dist_path        = "kinst/orainst"
+default.kinst.component.oracle.sqlplus.dist_versions = {
+  "12.1.0.1.0" => { 
+    :dist_file_name   => "instantclient-sqlplus-linux.x64-12.1.0.1.0.zip",
+    :dist_unpacks_to  => "instantclient_12_1"
+  }
+}
+
+#--------------- oracle basic component attributes
+
+default.kinst.component.oracle.basic.dist_bucket      = "ua-eas-ksd"
+default.kinst.component.oracle.basic.dist_path        = "kinst/orainst"
+default.kinst.component.oracle.basic.dist_versions = {
+  "12.1.0.1.0" => { 
+    :dist_file_name   => "instantclient-basic-linux.x64-12.1.0.1.0.zip",
+    :dist_unpacks_to  => "instantclient_12_1"
+  }
+}
