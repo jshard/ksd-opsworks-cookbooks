@@ -123,6 +123,15 @@ define :kc_application, :service           => '__missing__',
     command "ln --force --no-dereference --symbolic  #{app[:deploy]}/#{app[:dist_name]} #{app[:tomcat_webapps_path]}/#{app[:context_name]}"
   end
 
+  # patch web.xml until devs fix it...
+
+  execute "patching web.xml" do
+    user "#{app[:user]}"
+    group "#{app[:group]}"
+    cwd "#{app[:tomcat_webapps_path]}"
+    command "sed -i.bak -e 's/http:\\/\\/\localhost:8080/https:\\/\\/#{app[:application_host]}/' #{app[:deploy]}/#{app[:dist_name]}/WEB-INF/web.xml"
+  end
+
   # create health check endpoint for load balancer
 
   directory "#{app[:health_check_dir]}" do
