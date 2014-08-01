@@ -1,0 +1,104 @@
+<config>
+  <param name="application.http.scheme">https</param>
+  <param name="application.host"><%= @application_host %></param>
+  <param name="http.port">443</param>
+  <param name="app.context.name"><%= @context_name %></param>
+
+  <!-- KC Client DB -->
+  <param name="datasource.url">jdbc:oracle:thin:@<%= @database_url %></param>
+  <param name="datasource.username"><%= @database_username %></param>
+  <param name="datasource.password"><%= @database_password %></param>
+  <param name="datasource.ojb.platform">Oracle9i</param>
+
+  <!-- S2S Configuration -->
+  <param name="s2s.keystore.location">path to keystore</param>
+  <param name="s2s.keystore.password">keystore password</param>
+  <param name="s2s.truststore.location">path to truststore</param>
+  <param name="s2s.truststore.password">truststore password</param>
+  <param name="grants.gov.s2s.host">grants.gov host</param>
+  <param name="grants.gov.s2s.port">grants.gov port</param>
+  <param name="research.gov.keystore.location">path to keystore for research.gov(can be the same as s2s/grants.gov and provided for flexibility)</param>
+  <param name="research.gov.keystore.password">keystore password</param>
+  <param name="research.gov.truststore.location">path to truststore</param>
+  <param name="research.gov.truststore.password">truststore password</param>
+  <param name="research.gov.s2s.host">research.gov host</param>
+  <param name="research.gov.s2s.port">reserach.gov port</param>
+
+  <!-- Logging print Configuration -->
+  <param name="print.logging.directory">log directory path</param>
+  <param name="print.logging.enable">"true" to enable logging</param>
+
+  <!-- Save Xml Configuration -->
+  <param name="print.xml.directory">directory path</param>
+
+  <!-- Financial System WSDL Service URL -->
+  <param name="fin.system.integration.service.url">financial system service url</param>
+
+  <!-- Java mail properties -->
+  <param name="mail.from">mail.from@kuali.org</param>
+  <param name="mail.transport.protocol">smtp</param>
+  <param name="mail.smtp.host">127.0.0.1</param>
+  <param name="mail.smtp.port">25</param>
+  <param name="mail.smtp.user">userId</param>
+  <param name="mail.user.credentials">password</param>
+  <param name="mail.smtp.auth">false</param>
+
+  <!-- Kuali parameters -->
+  <param name="mail.relay.server">mail.relay.server</param>
+  <param name="mailing.list.batch">mailing.list.batch</param>
+  <param name="encryption.key">7IC64w6kAAAA</param>
+
+  <param name="keystore.alias">the_alias</param>
+  <param name="keystore.file">/path/to/keystore</param>
+  <param name="keystore.password">the_password</param>
+
+  <param name="print.xml.directory">${java.io.tmpdir}/printing</param>
+
+  <!-- Configuration for Exception Incident handling and reporting -->
+  <param name="KualiExceptionHandlerAction.EXCEPTION_INCIDENT_REPORT_SERVICE">knsExceptionIncidentService</param>
+  <param name="MailMessage.from">admin@kuali.org</param>
+  <param name="KualiExceptionIncidentServiceImpl.additionalExceptionNameList"></param>
+  <param name="KualiExceptionIncidentServiceImpl.REPORT_MAIL_LIST"></param>
+  <param name="kr.incident.mailing.list"></param>
+  <!-- End of Exception Incident handling and reporting -->
+
+  <!-- Misc parameters -->
+  <param name="institution">iu</param>
+  <param name="security.directory">/usr/local/rice/</param>
+  <param name="settings.directory">/usr/local/rice/</param>
+
+  <!-- CAS params -->
+  <!--
+  <param name="server.url">http://localhost:8080/</param>
+  <param name="filtermapping.login.1">/*</param>
+  <param name="filter.login.class">org.jasig.cas.client.authentication.AuthenticationFilter</param>
+  <param name="filter.login.casServerLoginUrl">${cas.url}/login</param>
+  <param name="filter.login.serverName">${server.url}</param>
+
+  <param name="cas.url">https://webauth.arizona.edu/webauth</param>
+  <param name="filter.login.class">org.jasig.cas.client.authentication.AuthenticationFilter</param>
+  <param name="filter.login.casServerLoginUrl">${cas.url}/login</param>
+  <param name="filter.login.serverName">http://localhost:8080/kc-dev/</param>
+  <param name="filter.caswrapper.class">org.jasig.cas.client.util.HttpServletRequestWrapperFilter</param>
+  <param name="filtermapping.caswrapper.3">/</param>
+  -->
+
+  <!--<param name="appserver.url">${application.http.scheme}://${application.host}:8080/${app.context.name}</param>-->
+  <param name="appserver.url">${application.http.scheme}://${application.host}</param>
+  <param name="cas.url">https://webauth.arizona.edu/webauth</param>
+  <param name="cas.require.https">false</param>
+  <param name="cas.validate.password">true</param>
+
+  <param name="filter.login.class">org.jasig.cas.client.authentication.AuthenticationFilter</param>
+  <param name="filter.login.casServerLoginUrl">${cas.url}/login</param>
+  <param name="filter.login.serverName">${appserver.url}</param>
+  <param name="filtermapping.login.1">/*</param>
+
+  <!-- LDAP params, rice LDAP override -->
+  <param name="rice.ldap.username">uid=<%= @ldap_username %>,ou=App Users,dc=eds,dc=arizona,dc=edu</param>
+  <param name="rice.ldap.password"><%= @ldap_password %></param>
+  <param name="rice.ldap.url"><%= @ldap_url %></param>
+  <param name="rice.ldap.base">ou=People,dc=eds,dc=arizona,dc=edu</param>
+  <param name="rice.kim.additionalSpringFiles">classpath:edu/arizona/rice/config/KIMLdapSpringBeans.xml</param>
+
+</config>
