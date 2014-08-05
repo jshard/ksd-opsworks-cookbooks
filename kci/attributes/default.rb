@@ -68,7 +68,7 @@ default.kci.application.component.tomcat.server_xml_cookbook  = "kinst"
 default.kci.application.component.tomcat.server_xml_template  = "tomcat_server_xml.erb"
 
 
-default.kci.application.component.tomcat.setenv_mem_opts         = "#{node.kinst.component.tomcat.setenv_mem_opts}"
+default.kci.application.component.tomcat.setenv_mem_opts         = "-Xms768m -Xmx2304m -XX:MaxPermSize=768m -XX:PermSize=128m -XX:+UseTLAB"
 default.kci.application.component.tomcat.setenv_gc_opts          = "#{node.kinst.component.tomcat.setenv_gc_opts}"
 default.kci.application.component.tomcat.setenv_kot7_opts        = "#{node.kinst.component.tomcat.setenv_kot7_opts}"
 default.kci.application.component.tomcat.setenv_melody_opts      = "#{node.kinst.component.tomcat.setenv_melody_opts}"
