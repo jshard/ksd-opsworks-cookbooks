@@ -9,6 +9,14 @@ default.kinst.system.net.remote_http_port     = "80"
 default.kinst.system.net.iptables_cookbook    = "kinst"
 default.kinst.system.net.iptables_template    = "system_net_iptables.erb"
 
+default.kinst.system.users = [
+                              { :username => "hlo",      :pubkey => "https://github.com/heather-lo.keys" },
+                              { :username => "nataliac", :pubkey => "https://github.com/nataliac06.keys" },
+                              { :username => "rhunter",  :pubkey => "https://github.com/rjhunter.keys" },
+                              { :username => "shaloo",   :pubkey => "https://github.com/joshuofa.keys" },
+                              { :username => "sskinner", :pubkey => "https://github.com/sskinner.keys" },
+                             ]
+
 #--------------- service attributes
 
 default.kinst.service.user.shell              = "/bin/bash"
@@ -231,3 +239,6 @@ default.kinst.component.oracle.basic.dist_versions = {
     :dist_unpacks_to  => "instantclient_12_1"
   }
 }
+
+
+
