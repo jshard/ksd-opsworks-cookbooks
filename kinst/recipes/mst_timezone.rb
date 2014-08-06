@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: kinst
-# Recipe:: change_timezone
+# Recipe:: mst_timezone
 #
 # Copyright (c) 2014, Arizona Board of Regents
 # All rights reserved.
