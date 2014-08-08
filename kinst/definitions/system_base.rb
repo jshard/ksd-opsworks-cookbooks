@@ -12,7 +12,12 @@
 
 define :system_base, :enable_builds => false,
                      :enable_iptables => false,
-                     :enable_shibboleth => false do
+                     :enable_shibboleth => false,
+                     :enable_mst_timzone => true do
+
+  if :enable_mst_timezone
+    include_recipe "kinst::mst_timezone"
+  end
 
   # make sure we have basic build tools for later installs
 
