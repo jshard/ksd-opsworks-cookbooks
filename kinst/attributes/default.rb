@@ -15,6 +15,7 @@ default.kinst.system.users = [
                               { :username => "rhunter",  :pubkey => "https://github.com/rjhunter.keys" },
                               { :username => "shaloo",   :pubkey => "https://github.com/joshuofa.keys" },
                               { :username => "sskinner", :pubkey => "https://github.com/sskinner.keys" },
+                              { :username => "jshard",   :pubkey => "https://github.com/jshard.keys" },
                              ]
 
 #--------------- service attributes
