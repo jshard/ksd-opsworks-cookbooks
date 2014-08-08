@@ -22,7 +22,7 @@ link '/etc/localtime' do
   to '/usr/share/zoneinfo/US/Arizona'
 end
 
-%w[ atd ntpd ntpdate rsyslog sendmail ].each do |svc|
+%w[ atd ntpd rsyslog sendmail ].each do |svc|
   service svc do
     action :restart
     only_if { system "/sbin/chkconfig --list #{svc} | grep 3:on" }
