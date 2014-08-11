@@ -13,12 +13,20 @@
 # file.
 #
 
+group "kc_dev" do
+  action :remove
+end
+
+memberList = Array.new
+
 node.default.kinst.system.users.each do |u|
 
   user u[:username] do
     supports :manage_home => true
     action :remove
   end
+
+  memberList.push(u[:username])
 
   home_dir = "/home/#{u[:username]}"
 
@@ -46,4 +54,10 @@ node.default.kinst.system.users.each do |u|
     mode 0600
   end
 
+end
+
+group "kc_dev" do
+  action :create
+  append true
+  members memberList
 end
