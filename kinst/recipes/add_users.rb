@@ -13,37 +13,57 @@
 # file.
 #
 
-node.default.kinst.system.users.each do |u|
+path_formats = {
+  :home_dir       => "/home/%{username}",
+  :ssh_dir        => "/home/%{username}/.ssh",
+  :auth_keys_file => "/home/%{username}/.ssh/authorized_keys",
+}
 
-  user u[:username] do
+users = node.default.kinst.system.users
+groups = ['dev']
+
+users.each do |userdata|
+
+  username = userdata[:username]
+  userpaths = path_formats.map { |k, v| {k => v % userdata } }.reduce(:merge)
+
+  user username do
     supports :manage_home => true
     action :remove
   end
 
-  home_dir = "/home/#{u[:username]}"
-
-  user u[:username] do
+  user username do
     supports :manage_home => true
     shell "/bin/bash"
-    home home_dir
+    home userpaths[:home_dir]
     action :create
   end
   
-  ssh_dir = "#{home_dir}/.ssh"
-  
-  directory ssh_dir do
-    user u[:username]
-    group u[:username]
+  directory userpaths[:ssh_dir] do
+    user username
+    group username
     mode 00700
   end
   
-  auth_keys = "#{ssh_dir}/authorized_keys"
-  
-  remote_file auth_keys do
-    source u[:pubkey]
-    owner u[:username]
-    group u[:username]
+  remote_file userpaths[:auth_keys_file] do
+    source userdata[:pubkey]
+    owner username
+    group username
     mode 0600
+  end
+
+end
+
+groups.each do |groupname|
+
+  group groupname do
+    action :remove
+  end
+  
+  group groupname do
+    action :create
+    append true
+    members users.map { |u| u[:username] }
   end
 
 end
