@@ -59,7 +59,7 @@ default.kti.toolkit.component.jenkins.install_as = "jenkins"
 default.kti.toolkit.component.jenkins.service    = "#{node.kti.toolkit.service.name}"
 default.kti.toolkit.component.jenkins.user       = "#{node.kti.toolkit.service.user}"
 default.kti.toolkit.component.jenkins.group      = "#{node.kti.toolkit.service.group}"
-default.kti.toolkit.component.jenkins.version    = "1.562"
+default.kti.toolkit.component.jenkins.version    = "1.575"
 default.kti.toolkit.component.jenkins.priority   = "7"
 
 #--------------- configure phase attributes

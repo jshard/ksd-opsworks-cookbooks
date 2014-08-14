@@ -51,6 +51,10 @@ define :jenkins_component, :service  => '__missing__',
     remote_path "#{cmp[:dist_path]}/#{cmp[:dist_file_name]}"
     owner "#{cmp[:user]}"
     group "#{cmp[:group]}"
+    if node.has_key? :aws_credentials
+      aws_access_key_id node[:aws_credentials][:access_key_id]
+      aws_secret_access_key node[:aws_credentials][:secret_access_key]
+    end
   end
 
   # copy/rename the war file into the component vhome

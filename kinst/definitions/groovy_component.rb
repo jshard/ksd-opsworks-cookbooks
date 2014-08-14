@@ -45,6 +45,16 @@ define :groovy_component, :service  => '__missing__',
     remote_path "#{cmp[:dist_path]}/#{cmp[:dist_file_name]}"
     owner "#{cmp[:user]}"
     group "#{cmp[:group]}"
+    if node.has_key? :aws_credentials
+      aws_access_key_id node[:aws_credentials][:access_key_id]
+      aws_secret_access_key node[:aws_credentials][:secret_access_key]
+    end
+  end
+
+  # install prereq packages
+
+  %w[ unzip ].each do |p|
+    package p
   end
 
   # remove the component home and replace it by unpacking the distribution file
@@ -66,6 +76,7 @@ define :groovy_component, :service  => '__missing__',
     group "#{cmp[:group]}"
     cwd "#{cmp[:home]}"
     command "mv #{cmp[:dist_unpacks_to]} #{cmp[:vhome]}"
+    not_if { ::File.exists? "#{cmp[:vhome]}" }
   end
 
   # add component profile
